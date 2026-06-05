@@ -38,6 +38,19 @@ F:\inst\infotesting
 
 git init
 git status
+git add .
+git commit -m "Initial Django project upload"
+git remote add origin https://github.com/AbhineshG/practice_django.git
+If origin already exists:
+
+git remote set-url origin https://github.com/AbhineshG/practice_django.git
+
+git branch
+git branch -M main
+git pull origin main --allow-unrelated-histories (1st time)
+git push -u origin main
+
+
 
 
 cd ..

@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+<title>{% block title %}Contact Us{% endblock %}</title>
+{% block content %}
+<section class="page-title hero_image"
+    style="background-image: url(https://www.magikalmomentswgl.com/public/front2/images/gallery/hero_img.jpg)">
+    <div class="auto-container">
+        <h1></h1>
+
+        <ul class="bread-crumb clearfix">
+            <li><a href="#"></a></li>
+
+            <li></li>
+        </ul>
+    </div>
+</section>
+
+<div class="row">
+    <div class="col-12" style="
+    margin-top: 5%;">
+
+
+        <div class="row">
+            {% for items in bookNow %}
+            <div class="col-md-6">
+                <div>
+                    <div class="position-relative">
+                        <a href="slotbooking_theatre">
+                            <img src={{items.image}} alt="Classy Theatre" class="theater-image">
+                        </a>
+                        <span class="rating-badge">★ 5</span>
+                    </div>
+                    <div class="p-3">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <a href="slotbooking_theatre">
+                                <h5 class="mb-0" style="color: #fff">{{items.title}}</h5>
+                            </a>
+                            <!-- <span class="availability-tag">5 Slots Available</span> -->
+                        </div>
+                        <div class="mb-3">
+                            <div class="d-flex align-items-center mb-2">
+
+                            </div>
+                            <div class="d-flex align-items-center mb-2">
+
+                                <span style="color: #fff">{{items.priceTitle}}</span>
+                            </div>
+                            <div class="d-flex align-items-center mb-2">
+
+
+                            </div>
+                        </div>
+                        <div class="text-end">
+                            <h4 class="mb-1" style="color: #fff">₹ {{items.price}}</h4>
+                            <small class="text-muted">{{items.priceDescriptions}}</small>
+                        </div>
+                        <div class="text-center mt-3">
+                            <a href="http://127.0.0.1:8000/userLogin/user/slotbooking_theatre/" class="btn btn-primary" onclick="SelectUsersTheater('{{ items.id }}', '{{ items.title }}')">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- Similar structure for Theater 2 and 3 -->
+            {% endfor %}
+        </div>
+
+
+
+
+
+    </div>
+
+</div>
+<script>
+    var userName = localStorage.getItem('Username');
+    var email = localStorage.getItem('email');
+    var contactNo = localStorage.getItem('contactNo');
+    var address = localStorage.getItem('address');
+    var role = localStorage.getItem('role');
+    var userId = localStorage.getItem('id');
+    function SelectUsersTheater(theaterId, theaterName) {
+        console.log(theaterId, theaterName);
+
+        // WARNING: For POST requests, body is set to null by browsers.
+        var data = new FormData();
+        data.append("userId", userId);
+        data.append("bookNowId", theaterId);
+        data.append("locations", theaterName);
+
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+
+        xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+                console.log(this.responseText);
+            }
+        });
+
+        xhr.open("POST", "http://127.0.0.1:8000/userLogin/user/booknowUpdate/");
+        xhr.setRequestHeader("X-CSRFToken", "");
+
+        xhr.send(data);
+        window.location.href = "http://127.0.0.1:8000/userLogin/user/theater/"
+    }
+</script>
+{% endblock %}

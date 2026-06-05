@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+<title>{% block title %}Contact Us{% endblock %}</title>
+{% block content %} 
+<section class="page-title hero_image"
+  style="background-image: url(https://www.magikalmomentswgl.com/public/front2/images/gallery/hero_img.jpg)">
+  <div class="auto-container">
+    <h1></h1>
+
+    <ul class="bread-crumb clearfix">
+      <li><a href="#"></a></li>
+
+      <li></li>
+    </ul>
+  </div>
+</section>
+
+<div class="row">
+  <div class="col-12">
+    <h3 class="get_intouch cn_div_colors">FAQ'S</h3>
+    <h1 class="get_intouch cn_div_colors">General Asked Questions
+</h1>
+    <div class="row">
+      <div class="col-6">
+        <a href="#demo" class="btn btn-primary" data-toggle="collapse" id="colls">What types of events can be hosted at MagikalMoment?</a>
+  <div id="demo" class="collapse">
+    We specialize in hosting a variety of events including birthdays, anniversaries, corporate functions, private screenings, and more.
+  </div>
+      </div>
+      <div class="col-6">
+        <a href="#demo1" class="btn btn-primary" data-toggle="collapse" id="colls">How many people can the private theater accommodate?</a>
+  <div id="demo1" class="collapse">
+   Our private theaters are designed to comfortably accommodate up to 30 guests, depending on the layout and event requirements.
+  </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        <a href="#demo2" class="btn btn-primary" data-toggle="collapse" id="colls">How do I book a private theater at MagikalMoment?
+</a>
+  <div id="demo2" class="collapse">
+    You can easily book your private theater by visiting our website and filling out the booking form, or by contacting our team directly.
+  </div>
+      </div>
+      <div class="col-6">
+        <a href="#demo3" class="btn btn-primary" data-toggle="collapse" id="colls">Is parking available at MagikalMoment?
+</a>
+  <div id="demo3" class="collapse">
+   Yes, we provide ample parking space for all guests attending your event.
+  </div>
+      </div>
+    </div>
+ 
+
+
+  </div>
+ 
+</div>
+<script>
+  var userName = localStorage.getItem('Username');
+  var email = localStorage.getItem('email');
+  var contactNo = localStorage.getItem('contactNo');
+  var address = localStorage.getItem('address');
+  console.log(userName, email, contactNo, address);
+
+document.getElementById("add").innerHTML = address;
+document.getElementById("cn").innerHTML = contactNo;
+document.getElementById("em").innerHTML = email;
+</script>
+{% endblock %}

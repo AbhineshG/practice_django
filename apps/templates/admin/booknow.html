@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+    <title>{% block title %}Book Now{% endblock %}</title>
+  {% block content %}
+<h1>User Data</h1>
+<div class="bookingAdmindiv" id="bookingAdmindivid">
+      
+</div>
+
+<script>
+// WARNING: For POST requests, body is set to null by browsers.
+var data = new FormData();
+data.append("userId", "5");
+data.append("date_global", "01-06-2026");
+data.append("timeSlotId", "4");
+data.append("counting_peoplesId", "3");
+
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function() {
+  if(this.readyState === 4) {
+    console.log(this.responseText);
+    var data_parsed = JSON.parse(this.responseText);
+    console.log(data_parsed);
+    document.getElementById("bookingAdmindivid").innerHTML =`
+    <h3>Name : Vijay</h3>  
+    <h3>Name : Vijay</h3>  
+    <h3> Locations : Hanamkonda , Warangal</h3>  
+    <h3> User Selected Screen Type : Screen Type</h3>  
+    <ul>
+        <li>Date: 01-06-2026</li>
+        <li>Time Slot: 06:00 PM - 09:00 PM</li>
+        <li>Status: Available</li>
+        <li>No of People: 6</li>
+        <li>Price: ₹ 2099</li>
+        <li>Price Descriptions: for up to 6 people</li>
+    </ul>
+    `
+  }
+});
+
+xhr.open("POST", "http://127.0.0.1:8000/userLogin/slotbooking_fetchUsers/");
+xhr.setRequestHeader("X-CSRFToken", "");
+
+xhr.send(data);
+    
+</script>
+    {% endblock %}

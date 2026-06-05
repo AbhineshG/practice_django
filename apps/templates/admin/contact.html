@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+<title>{% block title %}Contact Us{% endblock %}</title>
+{% block content %} 
+<section class="page-title hero_image"
+  style="background-image: url(https://www.magikalmomentswgl.com/public/front2/images/gallery/hero_img.jpg)">
+  <div class="auto-container">
+    <h1></h1>
+
+    <ul class="bread-crumb clearfix">
+      <li><a href="#"></a></li>
+
+      <li></li>
+    </ul>
+  </div>
+</section>
+
+<div class="row">
+  <div class="col-6">
+    <h3 class="get_intouch cn_div_colors">Get in Touch</h3>
+    <div class="row">
+      <div class="col-6">
+        <div class="form-group">
+          <label for="email" class="cn_div_colors">Name:</label>
+          <input type="text" class="form-control" placeholder="Enter name" id="name">
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group">
+          <label for="email" class="cn_div_colors">Phone:</label>
+          <input type="text" class="form-control" placeholder="Enter phone" id="phone">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        <div class="form-group">
+          <label for="email" class="cn_div_colors">Email:</label>
+          <input type="email" class="form-control" placeholder="Enter email" id="email">
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group">
+          <label for="email" class="cn_div_colors">Subject:</label>
+          <input type="text" class="form-control" placeholder="Enter subject" id="subject">
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-12">
+        <div class="col-12">
+          <div class="form-group">
+            <label for="message" class="cn_div_colors">Message:</label>
+            <textarea class="form-control" placeholder="Enter message" id="message"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+  <div class="col-6">
+
+    <div>
+      <h3 class="get_intouch cn_div_colors">Contact Info</h3>
+      <p class="cn_div_colors">Address:<br> <span id="add">
+          123 Main Street, Anytown, USA
+        </span> </p>
+      <p class="cn_div_colors">Phone: <br><span id="cn">
+          123 Main Street, Anytown, USA
+        </span></p>
+      <p class="cn_div_colors">Email: <br> <span id="em">
+          123 Main Street, Anytown, USA
+        </span></p>
+
+    </div>
+  </div>
+</div>
+<script>
+  var userName = localStorage.getItem('Username');
+  var email = localStorage.getItem('email');
+  var contactNo = localStorage.getItem('contactNo');
+  var address = localStorage.getItem('address');
+  console.log(userName, email, contactNo, address);
+
+document.getElementById("add").innerHTML = address;
+document.getElementById("cn").innerHTML = contactNo;
+document.getElementById("em").innerHTML = email;
+</script>
+{% endblock %}

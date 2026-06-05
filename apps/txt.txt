@@ -1,0 +1,30 @@
+pending 
+
+admin
+admin.py
+
+
+
+register
+password---> text 123456 ---> hased password
+encode and save
+@kkdjndf1dfdfd2dfdf3sedwe45dser6*8***
+
+make_password ---> hased
+
+
+login
+decode finding the password 
+@kkdjndf1dfdfd2dfdf3sedwe45dser6*8*** ---> 123456  (@kkdjndf1dfdfd2dfdf3sedwe45dser6*8***,123456 )
+check_passed ( password pure , db user password)
+dashboard
+
+authentication
+
+
+
+authorisations
+
+
+python lists
+

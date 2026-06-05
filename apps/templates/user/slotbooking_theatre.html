@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+<title>{% block title %}Services{% endblock %}</title>
+{% block content %}
+<div class="sbtMainDiv">
+    <div class="subdiv">
+        <img src="https://www.magikalmomentswgl.com/public/front2/images/main-slider/magikal-slider-2.jpg" alt=""
+            class="subdiv">
+        <div class="mlp">
+            <h1 class="screensM">Mayabazar Screening</h1>
+            <h3 class="screensL">Hanamkonda</h3>
+            <p class="screensP">Maya Bazar Screening - ₹1899 (screening + Decoration) for up to 4 people.
+                An additional ₹199 will be charged per person for each person beyond 4.
+                The hall can accommodate up to 8+ people.
+                Extra chairs for up to 8 additional people will be arranged as per the customer's requirement.
+                Children above 6 years of age will be charged.</p>
+        </div>
+    </div>
+    <div class="subdivTimeSlots">
+        <div class="bookingslotsSubDiv">
+            <label for="pwd">* Date:</label>
+            <input type="date" class="form-control" id="dates">
+            <div id="timeSlotsAlerts"></div>
+
+            <label for="ts">* Time Slot </label>
+            <div class="row SlotsBooktimmings">
+                <div class="col-md-9 leftsidePannels row">
+                    <div class="row" id="timeSlots">
+                        {% for items in bookNow %}
+                        <div class="statusCheckings col-sm-5" onclick="selectSlots('{{ items.id }}')">
+                            <h4 style="font-size: 20px;"> {{items.time_slot}} </h4>
+                            <p class="bookingStatus"> {{items.status}} </p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="col-sm-12"> <label>* No of People </label></div>
+                    <div class="col-sm-12 row">
+                        {% for items in no_of_peoples %}
+                        <div class="statusCheckings1 col-sm-2" id="timeSlots1" onclick="no_of_people('{{ items.id }}','{{items.price}}')">
+                            <h4 style="font-size: 20px;"> {{items.no_of_people}} </h4>
+                            <p class="bookingStatus"> ₹ {{items.price}}  </p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="rightsidePannels col-md-3">
+                    <h4> ₹ <span id="totalPrice">1,899.00</span></h4>
+                    <p class="bookingStatus"> *inclusive of all taxes</p>
+                    <p class="bookingStatus">Before booking, read terms and conditions</p>
+                    <button class="btn-success proceedBTN" onclick="proceedToBook()">Proceed to Book </button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<script>
+    var userId = localStorage.getItem('id');
+    var date_global = "";
+    var timeSlotId = "";
+    var counting_peoplesId = "";
+    var dates = document.getElementById('dates').addEventListener('change', function () {
+        console.log(this.value)
+        var selectedDate = this.value;
+        console.log(selectedDate, "====line no 622")
+
+        var formattedDate = selectedDate.split("-").reverse().join("-");
+        console.log(formattedDate, "====line no 35")
+        date_global = formattedDate;
+        // WARNING: For POST requests, body is set to null by browsers.
+        var data = new FormData();
+        data.append("userId", userId);
+        data.append("date", formattedDate);
+
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+
+        xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+                console.log(this.responseText);
+                var response = JSON.parse(this.responseText);
+                var timeSlotsContainer = document.getElementById("timeSlots");
+                var noOfPeopleContainer = document.getElementById("timeSlots1");
+
+                
+
+                for (var i = 0; i < response.bookNow.length; i++) {
+                    if (response.bookNow[i].status === "Unavailable") {
+                        timeSlotsContainer.children[i].children[1].innerText = "Unavailable";
+                        timeSlotsContainer.children[i].children[1].style.backgroundColor = "red";
+                    } else {
+                        timeSlotsContainer.children[i].children[1].innerText = "Available";
+                        timeSlotsContainer.children[i].children[1].style.backgroundColor = "green";
+                    }
+
+                }
+
+            }
+        });
+
+        xhr.open("POST", "http://127.0.0.1:8000/userLogin/user/slotbooking_select_Date/");
+        xhr.setRequestHeader("X-CSRFToken", "");
+
+        xhr.send(data);
+
+    })
+
+
+    function selectSlots(id) {
+        timeSlotId = String(id)
+        console.log(timeSlotId, "====line no 622")
+    }
+    function no_of_people(id, price) {
+        counting_peoplesId = String(id)
+        console.log(counting_peoplesId, "====line no 111")
+        document.getElementById("totalPrice").innerText = price;
+    }
+
+
+    function proceedToBook() {
+        if (date_global === "") {
+            document.getElementById("timeSlotsAlerts").innerHTML = `
+            <div class="alert alert-warning">
+                <strong>Warning!</strong> Please select a date.
+            </div> `
+        }
+        if (timeSlotId === "") {
+            document.getElementById("timeSlotsAlerts").innerHTML = `
+<div class="alert alert-danger">
+    <strong>Danger!</strong> Please select a time slot.
+  </div> `
+        }
+
+        if (counting_peoplesId === "") {
+            document.getElementById("timeSlotsAlerts").innerHTML = `
+<div class="alert alert-danger">
+    <strong>Danger!</strong> Please select the number of people.
+  </div> `
+        }
+        // WARNING: For POST requests, body is set to null by browsers.
+        var data = new FormData();
+        data.append("userId", userId);
+        data.append("date_global", date_global);
+        data.append("timeSlotId", timeSlotId);
+        data.append("counting_peoplesId", counting_peoplesId);
+
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+
+        xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+                console.log(this.responseText);
+               location.reload();
+            }
+        });
+
+        xhr.open("POST", "http://127.0.0.1:8000/userLogin/user/slotbooking_final/");
+        xhr.setRequestHeader("X-CSRFToken", "");
+
+        xhr.send(data);
+    }
+</script>
+{% endblock %}

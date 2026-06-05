@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Login</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+
+  <div class="container">
+    <h2>Login form</h2>
+
+
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" class="form-control" id="email" placeholder="Enter email">
+    </div>
+    <div class="form-group">
+      <label for="pwd">Password:</label>
+      <input type="password" class="form-control" id="pwd" placeholder="Enter password">
+    </div>
+
+  </div>
+  <button type="submit" class="btn btn-primary" onclick="login()">Submit</button>
+
+  <p style="color: red;"> <a href="http://127.0.0.1:8000/userLogin/register/">go to register</a> </p>
+
+  <p style="color: red;"> {{error}} </p>
+
+  </div>
+  <script>
+    function login() {
+      var email = document.getElementById("email").value;
+      console.log(email);
+
+      var password = document.getElementById("pwd").value;
+      console.log(password);
+      data = { email: email, password: password }
+      url = "http://127.0.0.1:8000/userLogin/loginPosts/"
+
+      // WARNING: For POST requests, body is set to null by browsers.
+      var data = new FormData();
+      data.append("email", email);
+      data.append("pswd", password);
+
+      var xhr = new XMLHttpRequest();
+      xhr.withCredentials = true;
+
+      xhr.addEventListener("readystatechange", function () {
+        if (this.readyState === 4) {
+          responseData = JSON.parse(this.responseText)
+          console.log(responseData);
+          localStorage.setItem('Username', responseData.userData[0].username);
+          localStorage.setItem('email', responseData.userData[0].email);
+          localStorage.setItem('role', responseData.userData[0].roles);
+          localStorage.setItem('id', responseData.userData[0].id);
+          localStorage.setItem('contactNo', responseData.userData[0].contactNo);
+          localStorage.setItem('address', responseData.userData[0].address);
+
+          if (responseData.userData[0].roles == "admin") {
+            window.location.href = "http://127.0.0.1:8000/userLogin/dashboard/"
+          } else if (responseData.userData[0].roles == "user") {
+            window.location.href = "http://127.0.0.1:8000/userLogin/userDashboard/"
+          }
+        }
+      });
+
+      xhr.open("POST", url);
+      xhr.setRequestHeader("X-CSRFToken", "");
+
+      xhr.send(data);
+    }
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+admin
+1. navbar (home , aboutus , service , Galleries ,policy , FAQ's , contact us ,  Book Now)
+2. banner
+3. about us 
+4. contact us 
+
+ 
+user
+
+
+Galleries ---> images , videos 
+footer--->
+book now ---> location , 2 services ---> 
+
+time slots:
+date select---> slots availabilities
+
+
+slots availabilities ---> 
+
+admin -->  user slots timmings and date and compare with admin
+
+admin ---> slots timmings modify user data
+
+user----> user side date , 
+
+git ---> git push (env)
+git clone---> env --> project 
+git pull 
+
+
+
+final procedure --> 
+
+1. date and selected id
+
+F:\inst\infotesting
+
+git init
+git status
+
+
+cd ..
+ .\env\Scripts\activate
+cd .\infotesting\ 
+py manage.py runserver 
+
+
+
+

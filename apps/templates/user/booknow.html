@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+<title>{% block title %}Book Now{% endblock %}</title>
+{% block content %}
+
+<div class="">
+  <h1 style="color: wheat;margin-top: 50px;">Select The Location</h1>
+  <img class="img-fluid" src="https://www.magikalmomentswgl.com/public/front2/images/theater/location.jpg" alt="Chania"
+    width="460" height="345">
+  <br>
+  {% for location in locations %}
+  <h2 style="color: wheat;margin-top: 10px;">{{ location.mainLocations }}</h2>
+ 
+  <br>
+  <button type="button" class="btn btn-info" style="
+    margin: 36px 63px 25px 60px;
+    width: 35%;" onclick="SelectUsersLocations('{{ location.id }}' , '{{ location.mainLocations }}')"><a >Book Now</a></button>
+     {% endfor %}
+</div>
+
+
+<script>
+  var userName = localStorage.getItem('Username');
+        var email = localStorage.getItem('email');
+        var contactNo = localStorage.getItem('contactNo');
+        var address = localStorage.getItem('address');
+        var role = localStorage.getItem('role');
+        var userId = localStorage.getItem('id');
+function SelectUsersLocations(locationId, locationName) {
+    console.log(locationId, locationName);
+   
+// WARNING: For POST requests, body is set to null by browsers.
+var data = new FormData();
+data.append("userId",userId);
+data.append("bookNowId", locationId);
+data.append("locations",locationName);
+
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function() {
+  if(this.readyState === 4) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("POST", "http://127.0.0.1:8000/userLogin/user/booknowUpdate/");
+xhr.setRequestHeader("X-CSRFToken", "");
+
+xhr.send(data);
+window.location.href = "http://127.0.0.1:8000/userLogin/user/theater/"
+}
+</script>
+{% endblock %}

@@ -66,3 +66,45 @@ git push origin main
 
 testings 06-06-2026 :12:21
 
+
+
+
+
+
+******************** new project *****************
+
+job portal
+
+office : 
+
+admin : posts ---> create a post for jobs (users) --> intrest listed 
+
+user --> posts recieve intrested / not intrested 
+
+register
+
+login
+
+adminPosts (models) 10 job posts
+id---> adminPostsId
+    0. adminId---> adminId
+    1. companary name (hospital)
+    2. job type full time,part time , night shift , day shift 
+    3. job role (doctors , nurse , attender)
+    4. no_vachencies : 4 
+    5. expected_salary : 25000
+    6. qualifications : mbbs
+    7. job requirements : text
+    7. job experiences : 3 years
+
+
+userModels:
+    id---> 
+    userId-->  userId
+    adminPostsId: adminPostsId
+    intrests: boolean
+
+
+
+
+

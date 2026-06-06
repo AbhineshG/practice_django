@@ -58,6 +58,11 @@ cd ..
 cd .\infotesting\ 
 py manage.py runserver 
 
+git add .
+git status
+git commit -m "Updated txt file and project files 05-06-2026 12:40"
+git push origin main
 
-testings 05-06-2026 :12:38
+
+testings 06-06-2026 :12:21
 
